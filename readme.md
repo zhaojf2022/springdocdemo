@@ -9,8 +9,8 @@
 - SpringBoot版本：3.4
 
 ### 项目演示地址
-- Swagger : http://localhost:8999/swagger-ui/index.html
-- Knife4j : http://localhost:8999/doc.html
+- Swagger : http://localhost:21002/swagger-ui/index.html
+- Knife4j : http://localhost:21002/doc.html
 
 ### OpenAPI 规范简介
 - OpenAPI规范（也称为 Swagger 3.x 规范） 是一种用于描述RESTful API的标准化格式；
