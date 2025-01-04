@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.zhaojf.springdocdemo.model.Todo;
 import com.zhaojf.springdocdemo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +25,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import com.zhaojf.springdocdemo.model.Todo;
-
-@Tag(name="Todo",description="Todo management API")
-@CrossOrigin(origins = "http://localhost:8999")
+@Tag(name="Todo接口",description="Todo 管理API")
 @RestController
 @RequestMapping("/api")
 public class TodoController {
@@ -40,10 +37,10 @@ public class TodoController {
 		this.todoRepository = todoRepository;
 	}
 
-	@Operation(summary = "Retrieve all Todos", tags = { "todos", "get", "filter" })
+	@Operation(summary = "Retrieve all Todo", tags = { "todos", "get", "filter" })
 	@ApiResponse(responseCode = "200", content = {
 		@Content(schema = @Schema(implementation = Todo.class), mediaType = "application/json") })
-	@ApiResponse(responseCode = "204", description = "There are no Todos", content = {
+	@ApiResponse(responseCode = "204", description = "There are no Todo", content = {
 		@Content(schema = @Schema()) })
 	@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
     @GetMapping("/todos")
@@ -82,7 +79,7 @@ public class TodoController {
         return todoData.map(todo -> new ResponseEntity<>(todo, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@Operation(summary = "Create a new Todo", tags = { "todos", "post" })
+	@Operation(summary = "Create a new Todo", tags = { "todo", "post" })
 	@ApiResponse(responseCode = "201", content = {
 		@Content(schema = @Schema(implementation = Todo.class), mediaType = "application/json") })
 	@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
@@ -97,7 +94,7 @@ public class TodoController {
 		}
 	}
 
-	@Operation(summary = "Update a Todo by Id", tags = { "todos", "put" })
+	@Operation(summary = "Update a Todo by Id", tags = { "todo", "put" })
 	@ApiResponse(responseCode = "200", content = {
 		@Content(schema = @Schema(implementation = Todo.class), mediaType = "application/json") })
 	@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
@@ -129,7 +126,7 @@ public class TodoController {
 		}
 	}
 
-	@Operation(summary = "Delete all Todos", tags = { "todos", "delete" })
+	@Operation(summary = "Delete all Todo", tags = { "todos", "delete" })
 	@ApiResponse(responseCode = "204", content = { @Content(schema = @Schema()) })
 	@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
 	@DeleteMapping("/todos")

@@ -2,19 +2,21 @@ package com.zhaojf.springdocdemo.controller;
 
 import com.zhaojf.springdocdemo.config.Constant;
 import com.zhaojf.springdocdemo.exception.ResourceNotFoundException;
+import com.zhaojf.springdocdemo.model.Todo;
 import com.zhaojf.springdocdemo.repository.TodoDetailsRepository;
 import com.zhaojf.springdocdemo.repository.TodoRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhaojf.springdocdemo.model.TodoDetails;
-import com.zhaojf.springdocdemo.model.Todo;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
+@Tag(name="Todo接口",description="Todo明细API")
 public class TodoDetailsController {
 
   private final TodoDetailsRepository detailsRepository;

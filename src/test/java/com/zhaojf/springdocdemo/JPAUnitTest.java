@@ -2,13 +2,12 @@ package com.zhaojf.springdocdemo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.zhaojf.springdocdemo.model.Todo;
 import com.zhaojf.springdocdemo.repository.TodoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
-import com.zhaojf.springdocdemo.model.Todo;
 
 @DataJpaTest
 class JPAUnitTest {

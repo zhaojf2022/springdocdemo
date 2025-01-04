@@ -83,3 +83,9 @@ knife4j:
   setting:
     language: zh-CN
 ```
+
+### Redoc的使用
+- Redoc 是一个开源前端项目，支持 OpenAPI 3.0 规范，可以生成美观、易读的 API 文档页面；
+- 添加RedocController，增加/redoc接口，重定向到/redoc.html文件；
+- 在resource/static下，创建redoc.html文件；
+- 暂时未调通，页面为空

@@ -1,12 +1,15 @@
 package com.zhaojf.springdocdemo.model;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -17,31 +20,10 @@ public class Comment {
   @Lob
   private String content;
 
-//  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "todo_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
   private Todo todo;
-
-  public Long getId() {
-    return id;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public Todo getTodo() {
-    return todo;
-  }
-
-  public void setTodo(Todo todo) {
-    this.todo = todo;
-  }
 
 }

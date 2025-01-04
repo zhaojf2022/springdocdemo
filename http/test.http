@@ -2,4 +2,4 @@
 GET http://localhost:8999/knife4j/test
 
 ### 测试Tag接口
-GET http://localhost:8999/api/todos
+GET http://localhost:8999/api/todo

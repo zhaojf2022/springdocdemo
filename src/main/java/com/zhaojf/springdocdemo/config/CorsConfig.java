@@ -1,6 +1,10 @@
 package com.zhaojf.springdocdemo.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,4 +31,5 @@ public class CorsConfig implements WebMvcConfigurer {
                 // 预检请求的有效期，单位为秒
                 .maxAge(3600);
     }
+
 }

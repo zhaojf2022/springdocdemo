@@ -18,13 +18,13 @@ public class OpenAPIConfig {
     public OpenAPI myOpenAPI() {
 
         // 定义测试环境服务器URL
-        String devUrl = "http://localhost:8999";
+        String devUrl = "http://localhost:21002";
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("测试环境的服务器URL");
 
         // 定义生产环境服务器URL
-        String prodUrl = "http://localhost:8999";
+        String prodUrl = "http://localhost:21002";
         Server prodServer = new Server();
         prodServer.setUrl(prodUrl);
         prodServer.setDescription("正式环境的服务器URL");

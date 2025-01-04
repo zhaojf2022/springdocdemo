@@ -6,10 +6,10 @@ import com.zhaojf.springdocdemo.config.Constant;
 import com.zhaojf.springdocdemo.exception.ResourceNotFoundException;
 import com.zhaojf.springdocdemo.repository.CommentRepository;
 import com.zhaojf.springdocdemo.repository.TodoRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zhaojf.springdocdemo.model.Comment;
 
-@CrossOrigin(origins = "http://localhost:8999")
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Comment", description = "评论API")
 public class CommentController {
 
   private final TodoRepository todoRepository;

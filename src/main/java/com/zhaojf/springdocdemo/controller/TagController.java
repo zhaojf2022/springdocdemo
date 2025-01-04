@@ -5,19 +5,19 @@ import java.util.List;
 
 import com.zhaojf.springdocdemo.config.Constant;
 import com.zhaojf.springdocdemo.exception.ResourceNotFoundException;
+import com.zhaojf.springdocdemo.model.DocTag;
+import com.zhaojf.springdocdemo.model.Todo;
 import com.zhaojf.springdocdemo.repository.TagRepository;
 import com.zhaojf.springdocdemo.repository.TodoRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhaojf.springdocdemo.model.Tag;
-import com.zhaojf.springdocdemo.model.Todo;
-
-@CrossOrigin(origins = "http://localhost:8999")
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Tag接口", description = "TagAPI")
 public class TagController {
 
   private final TodoRepository todoRepository;
@@ -32,39 +32,39 @@ public class TagController {
 
 
   @GetMapping("/tags")
-  public ResponseEntity<List<Tag>> getAllTags() {
+  public ResponseEntity<List<DocTag>> getAllTags() {
 
-      List<Tag> tags = new ArrayList<>(tagRepository.findAll());
+      List<DocTag> docTags = new ArrayList<>(tagRepository.findAll());
 
-    if (tags.isEmpty()) {
+    if (docTags.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    return new ResponseEntity<>(tags, HttpStatus.OK);
+    return new ResponseEntity<>(docTags, HttpStatus.OK);
   }
   
   @GetMapping("/todos/{todoId}/tags")
-  public ResponseEntity<List<Tag>> getAllTagsByTodoId(@PathVariable(value = "todoId") Long todoId) {
+  public ResponseEntity<List<DocTag>> getAllTagsByTodoId(@PathVariable(value = "todoId") Long todoId) {
     if (!todoRepository.existsById(todoId)) {
       throw new ResourceNotFoundException(Constant.TODO_NOT_FOUND + todoId);
     }
 
-    List<Tag> tags = tagRepository.findTagsByTodosId(todoId);
-    return new ResponseEntity<>(tags, HttpStatus.OK);
+    List<DocTag> docTags = tagRepository.findTagsByTodosId(todoId);
+    return new ResponseEntity<>(docTags, HttpStatus.OK);
   }
 
   @GetMapping("/tags/{id}")
-  public ResponseEntity<Tag> getTagsById(@PathVariable(value = "id") Long id) {
-    Tag tag = tagRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Not found Tag with id = " + id));
+  public ResponseEntity<DocTag> getTagsById(@PathVariable(value = "id") Long id) {
+    DocTag docTag = tagRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Not found DocTag with id = " + id));
 
-    return new ResponseEntity<>(tag, HttpStatus.OK);
+    return new ResponseEntity<>(docTag, HttpStatus.OK);
   }
   
   @GetMapping("/tags/{tagId}/todos")
   public ResponseEntity<List<Todo>> getAllTodosByTagId(@PathVariable(value = "tagId") Long tagId) {
     if (!tagRepository.existsById(tagId)) {
-      throw new ResourceNotFoundException("Not found Tag  with id = " + tagId);
+      throw new ResourceNotFoundException("Not found DocTag  with id = " + tagId);
     }
 
     List<Todo> todos = todoRepository.findTodosByTagsId(tagId);
@@ -72,35 +72,35 @@ public class TagController {
   }
 
   @PostMapping("/todos/{todoId}/tags")
-  public ResponseEntity<Tag> addTag(@PathVariable(value = "todoId") Long todoId, @RequestBody Tag tagRequest) {
-    Tag tag = todoRepository.findById(todoId).map(todo -> {
-      long tagId = tagRequest.getId();
+  public ResponseEntity<DocTag> addTag(@PathVariable(value = "todoId") Long todoId, @RequestBody DocTag docTagRequest) {
+    DocTag docTag = todoRepository.findById(todoId).map(todo -> {
+      long tagId = docTagRequest.getId();
       
-      // tag is existed
+      // docTag is existed
       if (tagId != 0L) {
-        Tag innserTag = tagRepository.findById(tagId)
-            .orElseThrow(() -> new ResourceNotFoundException("Not found Tag with id = " + tagId));
-        todo.addTag(innserTag);
+        DocTag innserDocTag = tagRepository.findById(tagId)
+            .orElseThrow(() -> new ResourceNotFoundException("Not found DocTag with id = " + tagId));
+        todo.addTag(innserDocTag);
         todoRepository.save(todo);
-        return innserTag;
+        return innserDocTag;
       }
       
-      // add and create new Tag
-      todo.addTag(tagRequest);
-      return tagRepository.save(tagRequest);
+      // add and create new DocTag
+      todo.addTag(docTagRequest);
+      return tagRepository.save(docTagRequest);
     }).orElseThrow(() -> new ResourceNotFoundException(Constant.TODO_NOT_FOUND + todoId));
 
-    return new ResponseEntity<>(tag, HttpStatus.CREATED);
+    return new ResponseEntity<>(docTag, HttpStatus.CREATED);
   }
 
   @PutMapping("/tags/{id}")
-  public ResponseEntity<Tag> updateTag(@PathVariable("id") long id, @RequestBody Tag tagRequest) {
-    Tag tag = tagRepository.findById(id)
+  public ResponseEntity<DocTag> updateTag(@PathVariable("id") long id, @RequestBody DocTag docTagRequest) {
+    DocTag docTag = tagRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("TagId " + id + "not found"));
 
-    tag.setName(tagRequest.getName());
+    docTag.setName(docTagRequest.getName());
 
-    return new ResponseEntity<>(tagRepository.save(tag), HttpStatus.OK);
+    return new ResponseEntity<>(tagRepository.save(docTag), HttpStatus.OK);
   }
  
   @DeleteMapping("/todos/{todoId}/tags/{tagId}")
